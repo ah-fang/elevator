@@ -1,5 +1,6 @@
 .title {
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .button-box {
@@ -15,4 +16,11 @@
     padding: 10px 15px;
     margin: 5px;
     border-radius: 50%;
+}
+
+#canvas {
+    width: 400px;
+    background-color: lightblue;
+    margin: 25px;
+
 }
