@@ -116,44 +116,77 @@ function return_to_default_floor(current_floor, default_floor) {
 }; 
 
 ////////////////////////CANVAS SECTION////////////////////////
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var rectH = 60;
-var rectW = 10;
+var rectH = 125;
+var rectW = 100;
 var rectX = (canvas.width - rectW)/2;
+var rectoffsetright = 80;
+
 var windowRowCount = 5;
 var windowColumnCount = 3;
-var windowWidth = 10;
-var windowHeight = 30;
+var windowWidth = 18;
+var windowHeight = 14;
 var windowPadding = 10;
-var windowOffsetTop = 30;
-var windowOffsetLeft = 30;
+var windowOffsetTop = 35;
+var windowOffsetLeft = 35;
 var windows = [];
-         
-//building
+
+//background
+var backGrdH = 100;
+var backGrdW = canvas.width;
+
+function drawBackGrd() {
+    ctx.beginPath();
+    ctx.rect(0, 125, backGrdW, backGrdH);
+    ctx.fillStyle = "#024601";
+    ctx.fill();
+    ctx.closePath();
+}
+// building
 function drawBuilding() {
     ctx.beginPath();
-    ctx.rect(rectX, canvas.height-rectH, rectW, rectH);
-    ctx.fillStyle = "#3300AA";
+    ctx.rect(rectX-rectoffsetright, canvas.height-rectH, rectW, rectH);
+    ctx.fillStyle = "gray";
     ctx.fill();
     ctx.closePath();
 }
 
+for(var c=0; c<windowColumnCount; c++) {
+    windows[c] = [];
+    for(var r=0; r < windowRowCount; r++) {
+        windows[c][r] = { x: 0, y: 0, status: 1 };
+    }
+}
+
 //windows
 function drawWindows() {
-    ctx.beginPath();
+
     for(var c=0; c<windowColumnCount; c++) {
-        window[c] = [];
         for(var r=0; r<windowRowCount; r++) {
-        window[c][r] = { x: 0, y: 0, status: 1 };
+            if (windows[c][r].status ==1){
+            var windowX = (c*(windowWidth+windowPadding))+windowOffsetLeft;
+            var windowY = (r*(windowHeight+windowPadding))+windowOffsetTop;
+            windows[c][r].x = windowX;
+            windows[c][r].y = windowY;
+            ctx.beginPath();
+            ctx.rect(windowX, windowY, windowWidth, windowHeight);
+            ctx.fillStyle = "rgba(180, 180, 0, 0.65)";
+            ctx.fill();
+            ctx.closePath();
+            }
         }
     }
 }
 
 function draw() {
+    drawBackGrd();
     drawBuilding();
     drawWindows();
 }
+
+draw();
 
 
 
